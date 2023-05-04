@@ -1,10 +1,12 @@
 #!/bin/bash
 
-mkdir -p /var/www/vhosts
 mkdir -p /etc/httpd/vhosts.d
 
 # Prompt the user for the domain name
 read -p "Enter the domain name: " domain
+
+mkdir -p /var/www/vhosts/$domain/public_html
+
 
 # Generate the private key
 openssl genrsa -out $domain.key 2048

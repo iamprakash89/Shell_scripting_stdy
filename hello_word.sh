@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 echo "Hello World"
 echo "I am a warrier, i am going to complete the shell scripting for devops"

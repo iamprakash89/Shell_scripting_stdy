@@ -30,18 +30,17 @@ cat << EOF > /etc/httpd/vhosts.d/$domain.conf
     ServerName $domain
     ServerAlias www.$domain
 
-	# Force HTTPS when loading the page
+        # Force HTTPS when loading the page
     #RewriteEngine On
     #RewriteCond %{HTTPS} off
     #RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
-		
+                
     DocumentRoot /var/www/vhosts/$domain/public_html
     ErrorLog /var/log/httpd/$domain-error.log
     CustomLog /var/log/httpd/$domain-access.log combined
 
     <Directory /var/www/vhosts/$domain/public_html>
         Require all granted
-        DirectoryIndex index.html
     </Directory>
 </VirtualHost>
 
@@ -55,7 +54,16 @@ cat << EOF > /etc/httpd/vhosts.d/$domain.conf
 
     <Directory /var/www/vhosts/$domain/public_html>
         Require all granted
-        DirectoryIndex index.html
+<VirtualHost *:443>
+    ServerName $domain
+    ServerAlias www.$domain
+
+    DocumentRoot /var/www/vhosts/$domain/public_html
+    ErrorLog /var/log/httpd/$domain-ssl-error.log
+    CustomLog /var/log/httpd/$domain-ssl-access.log combined
+
+    <Directory /var/www/vhosts/$domain/public_html>
+        Require all granted
     </Directory>
 
     # SSL Configuration
@@ -73,6 +81,3 @@ echo "Test page for $domain" > /var/www/vhosts/$domain/public_html/index.html
 curl -H "Host:  $domain" localhost/index.html
 
 httpd -t
-
-# Restart Apache to apply the changes
-systemctl restart httpd

@@ -40,7 +40,7 @@ cat << EOF > /etc/httpd/vhosts.d/$domain.conf
     CustomLog /var/log/httpd/$domain-access.log combined
 
     <Directory /var/www/vhosts/$domain/public_html>
-    
+        DirectoryIndex index.html
         Require all granted
     </Directory>
 </VirtualHost>
@@ -55,6 +55,7 @@ cat << EOF > /etc/httpd/vhosts.d/$domain.conf
     CustomLog /var/log/httpd/$domain-ssl-access.log combined
 
     <Directory /var/www/vhosts/$domain/public_html>
+        DirectoryIndex index.html
         Require all granted
     </Directory>
 

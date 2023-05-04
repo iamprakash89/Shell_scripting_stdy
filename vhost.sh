@@ -40,20 +40,12 @@ cat << EOF > /etc/httpd/vhosts.d/$domain.conf
     CustomLog /var/log/httpd/$domain-access.log combined
 
     <Directory /var/www/vhosts/$domain/public_html>
+    
         Require all granted
     </Directory>
 </VirtualHost>
 
-<VirtualHost *:443>
-    ServerName $domain
-    ServerAlias www.$domain
 
-    DocumentRoot /var/www/vhosts/$domain/public_html
-    ErrorLog /var/log/httpd/$domain-ssl-error.log
-    CustomLog /var/log/httpd/$domain-ssl-access.log combined
-
-    <Directory /var/www/vhosts/$domain/public_html>
-        Require all granted
 <VirtualHost *:443>
     ServerName $domain
     ServerAlias www.$domain
